@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Form validation: Task 3</title>
+    <style>
+      body {
+        background-color: #fff;
+        color: #333;
+        font: 1em / 1.4 Helvetica Neue, Helvetica, Arial, sans-serif;
+        padding: 1em;
+        margin: 0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+
+  <body>
+    <form>
+      <label for="mail">I would like you to provide me with an e-mail address:</label>
+      <input type="email" id="mail" name="mail" minlength="10" required>
+      <button>Submit</button>
+    </form>
+  </body>
+  <script>
+    const email = document.getElementById("mail");
+
+    // Check if email value is valid
+    email.addEventListener("input", (event) => {
+        if (email.validity.typeMismatch || email.validity.tooShort) {
+            showError();
+            event.preventDefault();
+        }
+    })
+
+    function showError() {
+        // Display type mismatch error message
+        if (email.validity.typeMismatch) {
+            email.setCustomValidity("Please input a valid email address");
+            email.reportValidity();
+        }
+
+        // Display lenth error message
+        if (email.validity.tooShort) {
+            email.setCustomValidity(`email too short, minimum of ${email.minLength} is required`);
+            email.reportValidity();
+        }
+    }
+
+  </script>
+
+</html>
+
+<!-- Make the input mandatory to fill in, and give it a minimum length of 10 characters.
+
+Add an event listener that checks whether the inputted value is an email address, and whether it is long enough. If it doesn't look like an email address or is too short, provide the user with appropriate custom error messages. -->
